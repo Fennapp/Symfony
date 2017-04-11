@@ -14,31 +14,35 @@ class DefaultController extends Controller
 
     public function listAction()
     {
-        return new Response('Liste des clients');
-        $this->render('CustomerBundle:Default:list.html.twig');
+        return $this->render('CustomerBundle:Default:list.html.twig');
     }
 
     public function createAction()
     {
-        return new Response('Creation du client');
-        $this->render('CustomerBundle:Default:create.html.twig');
+        return $this->render('CustomerBundle:Default:create.html.twig');
     }
 
     public function detailsAction($id)
     {
-        return new Response('Details du client ' . $id);
-        $this->render('CustomerBundle:Default:details.html.twig');
+        //return new Response('Details du client ' . $id);
+        return $this->render('CustomerBundle:Default:details.html.twig', [
+            'customer_id' => $id, 
+        ]);
     }
 
     public function updateAction($id)
     {
-        return new Response('Mise a jour client ' . $id);
-        $this->render('CustomerBundle:Default:update.html.twig');
+       //return new Response('Mise a jour client ' . $id);
+        return $this->render('CustomerBundle:Default:update.html.twig', [
+            'customer_id' => $id,
+        ]);
     }
 
     public function deleteAction($id)
     {
-        return new Response('Supression du client ' . $id);
-        $this->render('CustomerBundle:Default:delete.html.twig');
+        //return new Response('Supression du client ' . $id);
+        return $this->render('CustomerBundle:Default:delete.html.twig', [
+            'customer_id' => $id,
+        ]);
     }
 }
