@@ -1,0 +1,11 @@
+customer_details:
+  path: /
+  defaults: { _controller: CustomerBundle:Default:details}
+
+customer_update:
+  path: /update
+  defaults: { _controller: CustomerBundle:Default:update}
+
+customer_delete:
+  path: /delete
+  defaults: { _controller: CustomerBundle:Default:delete}
