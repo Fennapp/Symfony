@@ -1,0 +1,19 @@
+test_homepage:
+    path:     /
+    defaults: { _controller: TestBundle:Default:index }
+
+test_foo:
+    path:   /foo
+    defaults: { _controller: TestBundle:Default:foo }
+
+test_bar:
+    path: /bar
+    defaults: { _controller: TestBundle:Default:bar }
+
+test_param:
+    path: /{testparam}
+    defaults: { _controller: TestBundle:Default:testparam }
+
+test:
+    resource: routing/test.yml
+    prefix: /test

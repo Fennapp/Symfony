@@ -1,0 +1,8 @@
+
+testFoo:
+    path: /testfoo
+    defaults: { _controller: TestBundle:Default:Testfoo}
+
+test_number:
+    path: /{number}
+    defaults: { _controller: TestBundle:Default:number }
