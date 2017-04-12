@@ -1,0 +1,24 @@
+CustomerBundle\Entity\Customer:
+    type: entity
+    table: null
+    repositoryClass: CustomerBundle\Repository\customerRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        firstName:
+            type: string
+            length: '64'
+        lastName:
+            type: string
+            length: '64'
+        birthday:
+            type: datetime
+        balance:
+            type: decimal
+            precision: '7'
+            scale: '2'
+    lifecycleCallbacks: {  }

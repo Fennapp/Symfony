@@ -5,5 +5,9 @@
     <article>
         <h1>Liste des clients :</h1>
     </article>
+    {% for customer in customers %}
+        <li>Prenom: <a href="{{ path('customer_details', {'id':customer.id}) }}"/>{{ customer.firstName }}</li>
+        <li>Nom: {{ customer.lastName }}</li><br><br>
+    {% endfor %}
 </section>
 {% endblock %}

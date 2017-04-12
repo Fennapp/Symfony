@@ -4,7 +4,10 @@
 <section>
     <article>
         <h1>Détails du client</h1>
-        <h2>Identifiant: {{customer_id}}</h2>
-    </article>
+    </article>    
+        <li>Prenom: {{ customer.firstName }}</li>
+        <li>Nom: {{ customer.lastName }}</li>
+        <li>Date de naissance: {{ customer.birthday|date("m/d/Y") }}</li>
+        <li>Balance: {{ customer.balance|number_format(2, ',') }}</li><br><br>
 </section>
 {% endblock %}
