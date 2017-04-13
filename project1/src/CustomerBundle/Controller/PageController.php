@@ -42,6 +42,7 @@ class PageController extends Controller
             ])
             ->add('message', 'textarea')
             ->add('copy', 'checkbox',['required' => false])
+            ->add('attachment', 'file')
             ->add('send', 'submit')
             ->getForm();
 
@@ -50,6 +51,16 @@ class PageController extends Controller
             if($form->isSubmitted() && $form->isValid())
                 {
                     $data=$form->getData();
+                    /* Symfony\Component\HttpFoundation\File\UploadedFile */
+                    $file = $data['attachment'];
+ 
+                    // $fileName = $file->getClientOriginalName();
+                    $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+ 
+                    $dir = $this->getParameter('kernel.root_dir') . '/../var/data';
+ 
+                    // Move the file to the directory
+                    $file->move($dir, $fileName);
                     //return$this->redirectToRoute('');
                 }
 

@@ -21,9 +21,15 @@ class DefaultController extends Controller
        $repo = $this->getDoctrine()->getRepository('CustomerBundle:Customer');
        $customer = $repo->findAll();
       
+       $speaker = $this->get('customer.speaker');
+       $name = $speaker->sayMyName();
+       echo $name;
+       
+
         return $this->render('CustomerBundle:Default:list.html.twig',[
             'customers' => $customer,
         ]);
+     
     }
 
     public function createAction(Request $request)
