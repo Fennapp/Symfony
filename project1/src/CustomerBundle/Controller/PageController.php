@@ -65,7 +65,6 @@ class PageController extends Controller
                     //->setBody($data['message'])
                     ->setBody($body, 'text/html');*/
 
-                    $sent = $this->get('mailer')->send($message);
                     	$sent = $this
                         ->get('customer.notifier')
                         ->notify($data);
