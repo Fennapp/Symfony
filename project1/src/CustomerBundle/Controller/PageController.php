@@ -51,19 +51,24 @@ class PageController extends Controller
             if($form->isSubmitted() && $form->isValid())
                 {
                     $data=$form->getData();
-                    $body = $this->renderView(
+                    /*$body = $this->renderView(
                     'CustomerBundle:Email:contact.html.twig',
                     ['data' => $data]);
 
-                    /** @var \Swift_Mime_SimpleMessage $message */
+                    $email = $this->getParameter('recipient');
+
+                    /** @var \Swift_Mime_SimpleMessage $message
                     $message = \Swift_Message::newInstance()
-                    ->setTo('contact@ekyna.com')
+                    ->setTo($email)
                     ->setFrom($data['email'])
                     ->setSubject($data['subject'])
                     //->setBody($data['message'])
-                    ->setBody($body, 'text/html');
+                    ->setBody($body, 'text/html');*/
 
                     $sent = $this->get('mailer')->send($message);
+                    	$sent = $this
+                        ->get('customer.notifier')
+                        ->notify($data);
 
                     if (0 < $sent) {
                         $this->addFlash('success', 'Email envoyé !');
@@ -80,6 +85,8 @@ class PageController extends Controller
                         // Move the file to the directory
                         $file->move($dir, $fileName);
                     }
+
+                    return $this->redirectToRoute('customer_homepage');
 
             return $this->render('CustomerBundle:Page:contact.html.twig', [
             'form' => $form->createview(),
