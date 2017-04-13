@@ -42,7 +42,7 @@ class PageController extends Controller
             ])
             ->add('message', 'textarea')
             ->add('copy', 'checkbox',['required' => false])
-            ->add('attachment', 'file')
+            ->add('attachment', 'file', ['required' => false])
             ->add('send', 'submit')
             ->getForm();
 
@@ -51,22 +51,40 @@ class PageController extends Controller
             if($form->isSubmitted() && $form->isValid())
                 {
                     $data=$form->getData();
-                    /* Symfony\Component\HttpFoundation\File\UploadedFile */
-                    $file = $data['attachment'];
- 
-                    // $fileName = $file->getClientOriginalName();
-                    $fileName = md5(uniqid()) . '.' . $file->guessExtension();
- 
-                    $dir = $this->getParameter('kernel.root_dir') . '/../var/data';
- 
-                    // Move the file to the directory
-                    $file->move($dir, $fileName);
-                    //return$this->redirectToRoute('');
-                }
+                    $body = $this->renderView(
+                    'CustomerBundle:Email:contact.html.twig',
+                    ['data' => $data]);
 
-        return $this->render('CustomerBundle:Page:contact.html.twig', [
+                    /** @var \Swift_Mime_SimpleMessage $message */
+                    $message = \Swift_Message::newInstance()
+                    ->setTo('contact@ekyna.com')
+                    ->setFrom($data['email'])
+                    ->setSubject($data['subject'])
+                    //->setBody($data['message'])
+                    ->setBody($body, 'text/html');
+
+                    $sent = $this->get('mailer')->send($message);
+
+                    if (0 < $sent) {
+                        $this->addFlash('success', 'Email envoyé !');
+                    }
+
+            /* Symfony\Component\HttpFoundation\File\UploadedFile */
+                    if ($file = $data['attachment']) 
+                    {
+                        // $fileName = $file->getClientOriginalName();
+                        $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+                    
+                        $dir = $this->getParameter('kernel.root_dir') . '/../var/data';
+                    
+                        // Move the file to the directory
+                        $file->move($dir, $fileName);
+                    }
+
+            return $this->render('CustomerBundle:Page:contact.html.twig', [
             'form' => $form->createview(),
             'data' => $data,
-        ]);
+            ]);
+        }
     }
 }

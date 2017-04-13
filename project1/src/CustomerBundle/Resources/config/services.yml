@@ -1,10 +1,12 @@
 parameters:
-    customer.speaker.name: 'Heisenberg'
+    #customer.speaker.name: 'Heisenberg'
 
 services:
-#    customer.example:
-#        class: CustomerBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+
+    customer.name_registry: 
+        class: CustomerBundle\Service\NameRegistry
+
+
     customer.speaker:
         class: CustomerBundle\Service\Speaker
-        arguments: ['%customer.speaker.name%']
+        arguments: ['@customer.name_registry']

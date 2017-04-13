@@ -3,16 +3,16 @@ namespace CustomerBundle\Service;
 
 class Speaker
 {
-    private $name;
+    private $registry;
 
-    public function __construct($name)
+    public function __construct(NameRegistry $registry)
     {
-            $this->name = $name;
+            $this->registry = $registry;
     }
 
     public function sayMyName()
     {        
-        return $this->name;
+        return $this->registry->getRandomName();
         
     }
 }
